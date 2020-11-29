@@ -18,7 +18,7 @@ public class Main {
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(Http http , ActorSystem actorSystem , ActorMaterializer actorMaterializer){
         Flow.of(HttpRequest.class)
                 .map(item -> {
-                    new Pair<String , Integer> (item.)
+                    new Pair<String , Integer> (item.ge)
                 })
     }
     public static void main(String[] args) throws IOException {
