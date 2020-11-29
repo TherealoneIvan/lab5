@@ -9,13 +9,14 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 
 public class Main {
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(Http http , ActorSystem actorSystem , ActorMaterializer actorMaterializer){
-        Flow.of(HttpRequest.class).map(item ->)
+        Flow.of(HttpRequest.class).map(item -> Pair<>)
     }
     public static void main(String[] args) throws IOException {
         System.out.println("start!");
