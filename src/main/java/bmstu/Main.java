@@ -15,7 +15,7 @@ import java.util.concurrent.CompletionStage;
 
 public class Main {
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(Http http , ActorSystem actorSystem , ActorMaterializer actorMaterializer){
-        HttpResponse response = 
+        HttpResponse response = Flow.of(HttpRequest.class);
     }
     public static void main(String[] args) throws IOException {
         System.out.println("start!");
