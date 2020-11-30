@@ -36,8 +36,8 @@ public class Main {
                         1 ,actorSystem.
                 )
     }
-    private static Future<Object> isInStore(Pair<String , Integer> req){
-        Future<Object> result = Patterns.ask()
+    private static Future<Object> isInStore(Pair<String , Integer> req , ActorRef storeActor){
+        Future<Object> result = Patterns.ask(storeActor)
     }
     private static String countBuilder(String uri) {
         int i = uri.length() - 1;
