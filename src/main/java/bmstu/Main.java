@@ -32,7 +32,9 @@ public class Main {
                         1 ,
                 )
     }
-    private static 
+    private static Boolean isInStore(Pair<String , Integer> req){
+        
+    }
     private static String countBuilder(String uri) {
         int i = uri.length() - 1;
         String countOfReq = EMPTY_STRING;
