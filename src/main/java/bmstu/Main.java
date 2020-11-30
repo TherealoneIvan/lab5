@@ -33,7 +33,7 @@ public class Main {
                     return new Pair<String , Integer> (item.getUri().query().toString() ,parseInt(countOfReq));
                 })
                 .mapAsync(
-                        1 ,
+                        1 ,actorSystem
                 )
     }
     private static Future<Object> isInStore(Pair<String , Integer> req){
