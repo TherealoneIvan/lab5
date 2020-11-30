@@ -10,6 +10,9 @@ public class StroreActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(Pair.class , )
+                .match(
+                        Pair.class,
+                        
+                        )
     }
 }
