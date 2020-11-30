@@ -12,8 +12,10 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import com.sun.tools.javac.code.Symbol;
 import javafx.util.Pair;
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 import static java.lang.Integer.parseInt;
@@ -37,9 +39,9 @@ public class Main {
                             CompletionStage<Object> result = (CompletionStage<Object>) Patterns.ask(storeActor , pair , TIMEOUT_MILLIS);
                             result.thenCompose( (Pair<Boolean, Integer> item ) ->{
                                 if (item.getKey()){
-                                    return item.getValue();
+                                    return CompletableFuture<Integer> (item.getValue());
                                 }else {
-                                    
+
                                 }
                                     }
                             );
