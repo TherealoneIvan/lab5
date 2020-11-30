@@ -29,10 +29,10 @@ public class Main {
                     return new Pair<String , Integer> (item.getUri().query().toString() ,parseInt(countOfReq));
                 })
                 .mapAsync(
-                        1 , Pair<String , Integer> i ->
+                        1 ,
                 )
     }
-
+    private static 
     private static String countBuilder(String uri) {
         int i = uri.length() - 1;
         String countOfReq = EMPTY_STRING;
