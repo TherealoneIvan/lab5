@@ -26,7 +26,8 @@ public class Main {
     public static final char EQUALS_CHAR = '=';
     public static final int TIMEOUT_MILLIS = 5000;
 
-    public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(Http http , ActorSystem actorSystem , ActorMaterializer actorMaterializer){
+    public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(Http http , ActorSystem actorSystem ,
+                                                                      ActorMaterializer actorMaterializer , ActorRef storeActor){
         Flow.of(HttpRequest.class)
                 .map(item -> {
                     String uri = item.getUri().toString();
@@ -35,7 +36,7 @@ public class Main {
                 })
                 .mapAsync(
                         1 , (Pair<String , Integer> pair) -> {
-                            Future<Object> result = Patterns.ask(actorSystem.actorSelection() , req , TIMEOUT_MILLIS);
+                            return Patterns.ask(storeActor , pair , TIMEOUT_MILLIS).
                         }
                 )
     }
