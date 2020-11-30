@@ -14,13 +14,16 @@ import javafx.util.Pair;
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 
+import static java.lang.Integer.parseInt;
+
 public class Main {
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(Http http , ActorSystem actorSystem , ActorMaterializer actorMaterializer){
         Flow.of(HttpRequest.class)
                 .map(item -> {
                     String uri = item.getUri().toString();
                     String countOfReq = countBuilder(uri);
-                    new Pair<String , Integer> (item.getUri().query() , )
+                    new Pair<String , Integer> (item.getUri().query().toString() ,parseInt(countOfReq));
+                    
                 })
     }
 
