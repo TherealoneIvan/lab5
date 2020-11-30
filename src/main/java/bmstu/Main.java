@@ -35,7 +35,7 @@ public class Main {
                 })
                 .mapAsync(
                         1 , (Pair<String , Integer> pair) -> {
-                            
+                            Future<Object> result = Patterns.ask(actorSystem.actorSelection() , req , TIMEOUT_MILLIS);
                         }
                 )
     }
