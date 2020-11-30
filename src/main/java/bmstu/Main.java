@@ -39,7 +39,7 @@ public class Main {
                             CompletionStage<Object> result = (CompletionStage<Object>) Patterns.ask(storeActor , pair , TIMEOUT_MILLIS);
                             result.thenCompose( (Pair<Boolean, Integer> item ) ->{
                                 if (item.getKey()){
-                                    return CompletableFuture<Integer> (item.getValue());
+                                    return 
                                 }else {
 
                                 }
