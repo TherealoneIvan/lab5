@@ -40,9 +40,8 @@ public class Main {
                             result.thenCompose( (Pair<Boolean, Integer> item ) ->{
                                 if (item.getKey()){
                                     return  CompletableFuture.completedFuture(item.getValue());
-                                }else {
-                                    return CompletableFuture.completedFuture(item.getValue());
                                 }
+
                                     }
                             );
                         }
