@@ -34,14 +34,12 @@ public class Main {
                     return new Pair<String , Integer> (item.getUri().query().toString() ,parseInt(countOfReq));
                 })
                 .mapAsync(
-                        1 ,actorSystem.
+                        1 , (Pair<String , Integer>) -> {}
                 )
     }
-    private static Future<Object> isInStore(Pair<String , Integer> req , ActorRef storeActor){
-        Future<Object> result = Patterns.ask(storeActor , req , TIMEOUT_MILLIS);
-        
-
-    }
+//    private static Future<Object> isInStore(Pair<String , Integer> req , ActorRef storeActor){
+//         return Future<Object> result = Patterns.ask(storeActor , req , TIMEOUT_MILLIS);
+//    };
     private static String countBuilder(String uri) {
         int i = uri.length() - 1;
         String countOfReq = EMPTY_STRING;
