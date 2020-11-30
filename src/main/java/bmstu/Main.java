@@ -33,7 +33,7 @@ public class Main {
                 )
     }
     private static Boolean isInStore(Pair<String , Integer> req){
-        
+
     }
     private static String countBuilder(String uri) {
         int i = uri.length() - 1;
