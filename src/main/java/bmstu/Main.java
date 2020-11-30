@@ -10,6 +10,7 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import javafx.util.Pair;
+import scala.concurrent.Future;
 
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
@@ -32,8 +33,8 @@ public class Main {
                         1 ,
                 )
     }
-    private static Boolean isInStore(Pair<String , Integer> req){
-
+    private static Future<Object> isInStore(Pair<String , Integer> req){
+        
     }
     private static String countBuilder(String uri) {
         int i = uri.length() - 1;
