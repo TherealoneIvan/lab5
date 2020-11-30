@@ -5,7 +5,7 @@ import javafx.util.Pair;
 
 import java.util.Map;
 
-public class StroreActor extends AbstractActor {
+public class StoreActor extends AbstractActor {
     static Map<Pair<String , Integer>, Integer> store;
     @Override
     public Receive createReceive() {
