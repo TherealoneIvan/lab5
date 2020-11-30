@@ -34,7 +34,9 @@ public class Main {
                     return new Pair<String , Integer> (item.getUri().query().toString() ,parseInt(countOfReq));
                 })
                 .mapAsync(
-                        1 , (Pair<String , Integer>) -> {}
+                        1 , (Pair<String , Integer> pair) -> {
+                            
+                        }
                 )
     }
 //    private static Future<Object> isInStore(Pair<String , Integer> req , ActorRef storeActor){
