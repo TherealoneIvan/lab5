@@ -24,6 +24,7 @@ public class Main {
 
     public static final String EMPTY_STRING = "";
     public static final char EQUALS_CHAR = '=';
+    public static final int TIMEOUT_MILLIS = 5000;
 
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(Http http , ActorSystem actorSystem , ActorMaterializer actorMaterializer){
         Flow.of(HttpRequest.class)
@@ -37,7 +38,8 @@ public class Main {
                 )
     }
     private static Future<Object> isInStore(Pair<String , Integer> req , ActorRef storeActor){
-        Future<Object> result = Patterns.ask(storeActor)
+        Future<Object> result = Patterns.ask(storeActor , req , TIMEOUT_MILLIS);
+        
     }
     private static String countBuilder(String uri) {
         int i = uri.length() - 1;
