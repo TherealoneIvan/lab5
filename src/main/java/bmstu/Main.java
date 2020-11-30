@@ -28,7 +28,9 @@ public class Main {
                     String countOfReq = countBuilder(uri);
                     return new Pair<String , Integer> (item.getUri().query().toString() ,parseInt(countOfReq));
                 })
-                .map()
+                .mapAsync(
+                        
+                )
     }
 
     private static String countBuilder(String uri) {
