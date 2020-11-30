@@ -7,6 +7,7 @@ import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
+import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import javafx.util.Pair;
@@ -34,7 +35,7 @@ public class Main {
                 )
     }
     private static Future<Object> isInStore(Pair<String , Integer> req){
-        
+        Future<Object> result = Patterns.ask()
     }
     private static String countBuilder(String uri) {
         int i = uri.length() - 1;
