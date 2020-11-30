@@ -18,10 +18,22 @@ public class Main {
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(Http http , ActorSystem actorSystem , ActorMaterializer actorMaterializer){
         Flow.of(HttpRequest.class)
                 .map(item -> {
-                    String count = item.getUri().toString().
+                    String uri = item.getUri().toString();
+                    String countOfReq = countBuilder(uri);
                     new Pair<String , Integer> (item.getUri().query() , )
                 })
     }
+
+    private static String countBuilder(String uri) {
+        int i = uri.length() - 1;
+        String countOfReq = "";
+        while (uri.charAt(i) != '=' ){
+            countOfReq += uri.charAt(i);
+            i--;
+        }
+        return countOfReq;
+    }
+
     public static void main(String[] args) throws IOException {
         System.out.println("start!");
         ActorSystem system = ActorSystem.create("routes");
