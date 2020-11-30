@@ -13,6 +13,7 @@ public class StroreActor extends AbstractActor {
                 .match(
                         Pair.class,
                         pair -> getRes(pair))
+                .build();
     }
     private static Pair<Boolean , Integer> getRes(Pair<String , Integer> req){
         if (store.containsKey(req)){
