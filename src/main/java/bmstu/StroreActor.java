@@ -12,7 +12,10 @@ public class StroreActor extends AbstractActor {
         return receiveBuilder()
                 .match(
                         Pair.class,
-                        
+                        pair ->{
+
+                        }
                         )
     }
+    private static Boolean
 }
