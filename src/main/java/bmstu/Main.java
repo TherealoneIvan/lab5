@@ -18,7 +18,7 @@ public class Main {
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(Http http , ActorSystem actorSystem , ActorMaterializer actorMaterializer){
         Flow.of(HttpRequest.class)
                 .map(item -> {
-                    String count = item.getUri()
+                    String count = item.getUri().toString().
                     new Pair<String , Integer> (item.getUri().query() , )
                 })
     }
