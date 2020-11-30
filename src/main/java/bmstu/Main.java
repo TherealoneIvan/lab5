@@ -34,9 +34,12 @@ public class Main {
                 })
                 .mapAsync(
                         1 , (Pair<String , Integer> pair) -> {
-                            CompletionStage<Object> result = Patterns.ask(storeActor , pair , TIMEOUT_MILLIS);
-                            result.thenCompose(
-                                    if ()
+                            CompletionStage<Object> result = (CompletionStage<Object>) Patterns.ask(storeActor , pair , TIMEOUT_MILLIS);
+                            result.thenCompose( (Pair<Boolean, Integer>item ) ->{
+                                if (item.getKey()){
+                                    return 
+                                }
+                                    }
                             );
                         }
                 )
