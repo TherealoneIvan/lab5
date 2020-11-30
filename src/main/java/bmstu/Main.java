@@ -29,7 +29,7 @@ public class Main {
                     return new Pair<String , Integer> (item.getUri().query().toString() ,parseInt(countOfReq));
                 })
                 .mapAsync(
-                        1 , 
+                        1 , Pair<String , Integer> i ->
                 )
     }
 
