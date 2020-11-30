@@ -17,20 +17,24 @@ import java.util.concurrent.CompletionStage;
 import static java.lang.Integer.parseInt;
 
 public class Main {
+
+    public static final String EMPTY_STRING = "";
+    public static final char EQUALS_CHAR = '=';
+
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(Http http , ActorSystem actorSystem , ActorMaterializer actorMaterializer){
         Flow.of(HttpRequest.class)
                 .map(item -> {
                     String uri = item.getUri().toString();
                     String countOfReq = countBuilder(uri);
-                    new Pair<String , Integer> (item.getUri().query().toString() ,parseInt(countOfReq));
-                    
+                    return new Pair<String , Integer> (item.getUri().query().toString() ,parseInt(countOfReq));
                 })
+                .map()
     }
 
     private static String countBuilder(String uri) {
         int i = uri.length() - 1;
-        String countOfReq = "";
-        while (uri.charAt(i) != '=' ){
+        String countOfReq = EMPTY_STRING;
+        while (uri.charAt(i) != EQUALS_CHAR){
             countOfReq += uri.charAt(i);
             i--;
         }
