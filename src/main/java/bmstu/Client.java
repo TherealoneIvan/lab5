@@ -50,7 +50,7 @@ public class Client {
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
                                         }
-                                        
+
                             }
     }
                                 .map();
