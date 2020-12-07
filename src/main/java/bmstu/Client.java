@@ -51,7 +51,7 @@ public class Client {
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
                                         }
-
+                                        Sink<Pair<String, Integer> , >
                                         Flow<Pair<String, Integer> , Integer , NotUsed> rFlow =
                                                 Flow.<Pair<String , Integer>>create()
                                                         .mapConcat(
