@@ -46,7 +46,7 @@ public class Main {
                                         Flow.<Pair<String , Integer>>create()
                                         .mapConcat(
                                                 item -> {
-                                                   ArrayList<Integer> res = new ArrayList<Integer>();
+                                                   ArrayList<Pair < String ,Integer>> res = new ArrayList<Pair<String , Integer>>();
                                                    for (int i = 0 ; i < item.getValue(); i++ )
                                                        res.add()
                                                 }
