@@ -13,6 +13,7 @@ import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Sink;
 import javafx.util.Pair;
 import org.asynchttpclient.AsyncHttpClient;
+import scala.Int;
 
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
@@ -45,7 +46,7 @@ public class Client {
                 })
                 .mapAsync(
                         1 , (Pair<String , Integer> pair) -> {
-                            CompletionStage<Object> result = (CompletionStage<Object>) Patterns.ask(storeActor , pair , TIMEOUT_MILLIS);
+                            CompletionStage<Integer> result = (CompletionStage<Integer>) Patterns.ask(storeActor , pair , TIMEOUT_MILLIS);
                             result.thenCompose( (Pair<Boolean, Integer> item ) ->{
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
@@ -54,7 +55,7 @@ public class Client {
                                                 Flow.<Pair<String , Integer>>create()
                                                         .mapConcat(Client::apply)
                                                         .mapAsync( 3 , Client::asyncHttp)
-                                                        .toMat(Sink.fold(0 , ) , Keep.right());
+                                                        .toMat(Sink.fold(0 , Integer::sum) , Keep.right());
 
                             
                         }
