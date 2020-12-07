@@ -52,8 +52,7 @@ public class Client {
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
                                         }
-//                                        Sink<Pair<String, Integer> , CompletionStage<Long>> testSink =
-                                        Flow<Pair<String, Integer> , Integer , NotUsed> rFlow =
+                                        Flow<Pair<String, Integer>, Object, NotUsed> rFlow =
                                                 Flow.<Pair<String , Integer>>create()
                                                         .mapConcat(
                                                                 requestPair -> {
@@ -63,17 +62,18 @@ public class Client {
                                                                     return res;
                                                                 }
                                                         )
-                                                        .mapAsync( () -> {
+                                                        .mapAsync( 3 , (request) -> {
 
                                                                     AsyncHttpClient asyncHttpClient = asyncHttpClient();
                                                                     Long startTime = System.currentTimeMillis();
-                                                                    asyncHttpClient
-                                                                            .prepareGet(pair.getKey())
+                                                                    return asyncHttpClient
+                                                                            .prepareGet(request.getKey())
                                                                             .execute()
                                                                             .toCompletableFuture()
                                                                             .thenCompose(response -> CompletableFuture.completedFuture(System.currentTimeMillis() - startTime));
                                                                 }
                                                         )
+
 
                                 Source.from(Collections.singletonList(pair))
                                         .toMat(testSink, Keep.right()).run(materializer);
