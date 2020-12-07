@@ -64,7 +64,9 @@ public class Client {
                                                                 }
                                                         )
                                                         .mapAsync( () -> {
+
                                                                     AsyncHttpClient asyncHttpClient = asyncHttpClient();
+                                                                    
                                                                     asyncHttpClient
                                                                             .prepareGet(pair.getKey())
                                                                             .execute()
