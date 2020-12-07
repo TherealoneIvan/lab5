@@ -2,17 +2,15 @@ package bmstu;
 
 import akka.NotUsed;
 import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.http.javadsl.Http;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
+import akka.japi.Pair;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
-import javafx.util.Pair;
 import org.asynchttpclient.AsyncHttpClient;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,14 +43,14 @@ public class Client {
                 })
                 .mapAsync(
                         1 ,(Pair<String, Integer> req) -> {
-                            CompletionStage<Object> result = (CompletionStage<Object>) Patterns.ask(storeActor , new Pair<String , Integer>(req.getKey() , req.getValue()) , TIMEOUT_MILLIS);
+                            CompletionStage<Object> result = (CompletionStage<Object>) Patterns.ask(storeActor , new Pair<String , Integer>(req.first() , req.second()) , TIMEOUT_MILLIS);
                             result.thenCompose( (Object item) ->{
                                         if ((Integer) item != -1 ){
                                             return  CompletableFuture.completedFuture((Integer) item);
                                         }
                                         return Source.from(Collections.singletonList(req))
                                             .toMat(getSink(), Keep.right()).run(actorMaterializer)
-                                                .thenApply(reqTime -> new Pair<>(req.getKey() , reqTime/req.getValue()));
+                                                .thenApply(reqTime -> new Pair<>(req.first() , reqTime/req.second()));
                             });
                             return result;
                         })
@@ -72,8 +70,8 @@ public class Client {
 
     private static Iterable<Pair<String, Integer>> apply(Pair<String, Integer> requestPair) {
         ArrayList<Pair<String, Integer>> res = new ArrayList<Pair<String, Integer>>();
-        for (int i = 0; i < requestPair.getValue(); i++)
-            res.add(new Pair<String, Integer>(requestPair.getKey(), requestPair.getValue()));
+        for (int i = 0; i < requestPair.second(); i++)
+            res.add(new Pair<String, Integer>(requestPair.first(), requestPair.second()));
         return res;
     }
 
@@ -82,7 +80,7 @@ public class Client {
         AsyncHttpClient asyncHttpClient = asyncHttpClient();
         Long startTime = System.currentTimeMillis();
         return asyncHttpClient
-                .prepareGet(request.getKey())
+                .prepareGet(request.first())
                 .execute()
                 .toCompletableFuture()
                 .thenCompose(response -> CompletableFuture.completedFuture(System.currentTimeMillis() - startTime));
