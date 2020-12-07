@@ -73,7 +73,7 @@ public class Client {
                                                                             .toCompletableFuture()
                                                                             .thenCompose(response -> CompletableFuture.completedFuture(System.currentTimeMillis() - startTime));
 
-                                                                    return 
+                                                                    return  
                                                                 }
                                                         )
 
