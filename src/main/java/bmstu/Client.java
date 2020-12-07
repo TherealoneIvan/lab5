@@ -58,7 +58,7 @@ public class Client {
                             return result;
                         })
                 .map(resp -> {
-                    storeActor.tell();
+                    storeActor.tell(resp , );
                 });
 }
 
