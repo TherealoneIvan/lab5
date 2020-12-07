@@ -1,7 +1,7 @@
 package bmstu;
 
 import akka.actor.AbstractActor;
-import javafx.util.Pair;
+import akka.japi.Pair;
 
 import java.util.Map;
 
