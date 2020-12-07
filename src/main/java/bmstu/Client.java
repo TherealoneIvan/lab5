@@ -55,36 +55,32 @@ public class Client {
                                         Flow<Pair<String, Integer>, Object, NotUsed> rFlow =
                                                 Flow.<Pair<String , Integer>>create()
                                                         .mapConcat(
-                                                                requestPair -> {
-                                                                    ArrayList<Pair <String ,Integer>> res = new ArrayList<Pair<String , Integer>>();
-                                                                    for (int i = 0 ; i < requestPair.getValue(); i++ )
-                                                                        res.add(new Pair<String, Integer>(requestPair.getKey() , requestPair.getValue()));
-                                                                    return res;
-                                                                }
+                                                                Client::apply
                                                         )
-                                                        .mapAsync( 3 , (request) -> {
-
-                                                                    AsyncHttpClient asyncHttpClient = asyncHttpClient();
-                                                                    Long startTime = System.currentTimeMillis();
-                                                                    return asyncHttpClient
-                                                                            .prepareGet(request.getKey())
-                                                                            .execute()
-                                                                            .toCompletableFuture()
-                                                                            .thenCompose(response -> CompletableFuture.completedFuture(System.currentTimeMillis() - startTime));
-                                                                }
-                                                        )
-                                                        .map(response ->
-                                                        {
-                                                            storeActor.tell(response , ActorRef.noSender())
-                                                            return HttpResponse.create().withEntity(response)
-                                                        })
-
-
-                                Source.from(Collections.singletonList(pair))
-                                        .toMat(testSink, Keep.right()).run(materializer);
-                                    }
-                            );
+                                                        .mapAsync( 3 , Client::apply2
+                                                        );
+                                                        
+                            
                         }
-                )
+                
+    }
+}
+
+    private static Iterable<Pair<String, Integer>> apply(Pair<String, Integer> requestPair) {
+        ArrayList<Pair<String, Integer>> res = new ArrayList<Pair<String, Integer>>();
+        for (int i = 0; i < requestPair.getValue(); i++)
+            res.add(new Pair<String, Integer>(requestPair.getKey(), requestPair.getValue()));
+        return res;
+    }
+
+    private static CompletionStage<Object> apply2(Pair<String, Integer> request) {
+
+        AsyncHttpClient asyncHttpClient = asyncHttpClient();
+        Long startTime = System.currentTimeMillis();
+        return asyncHttpClient
+                .prepareGet(request.getKey())
+                .execute()
+                .toCompletableFuture()
+                .thenCompose(response -> CompletableFuture.completedFuture(System.currentTimeMillis() - startTime));
     }
 }
