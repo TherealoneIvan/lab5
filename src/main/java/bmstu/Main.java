@@ -46,12 +46,13 @@ public class Main {
                                         Flow.<Pair<String , Integer>>create()
                                         .mapConcat(
                                                 requestPair -> {
-                                                   ArrayList<Pair < String ,Integer>> res = new ArrayList<Pair<String , Integer>>();
+                                                   ArrayList<Pair <String ,Integer>> res = new ArrayList<Pair<String , Integer>>();
                                                    for (int i = 0 ; i < requestPair.getValue(); i++ )
                                                        res.add(new Pair<String, Integer>(requestPair.getKey() , requestPair.getValue()));
                                                    return res;
                                                 }
                                         )
+                                        .mapAsync()
 
 
                                     }
