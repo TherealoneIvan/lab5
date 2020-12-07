@@ -57,7 +57,7 @@ public class Client {
                                                         .mapConcat(
                                                                 Client::apply
                                                         )
-                                                        .mapAsync( 3 , Client::apply2
+                                                        .mapAsync( 3 , Client::async
                                                         );
                                                         
                             
@@ -73,7 +73,7 @@ public class Client {
         return res;
     }
 
-    private static CompletionStage<Object> apply2(Pair<String, Integer> request) {
+    private static CompletionStage<Object> async(Pair<String, Integer> request) {
 
         AsyncHttpClient asyncHttpClient = asyncHttpClient();
         Long startTime = System.currentTimeMillis();
