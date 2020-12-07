@@ -67,12 +67,11 @@ public class Client {
 
                                                                     AsyncHttpClient asyncHttpClient = asyncHttpClient();
                                                                     Long startTime = System.currentTimeMillis();
-                                                                return  asyncHttpClient
+                                                                    asyncHttpClient
                                                                             .prepareGet(pair.getKey())
                                                                             .execute()
                                                                             .toCompletableFuture()
                                                                             .thenCompose(response -> CompletableFuture.completedFuture(System.currentTimeMillis() - startTime));
-                                                                            .
                                                                 }
                                                         )
 
