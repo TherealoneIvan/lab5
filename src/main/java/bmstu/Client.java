@@ -11,11 +11,8 @@ import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Sink;
-import akka.stream.javadsl.Source;
 import javafx.util.Pair;
 import org.asynchttpclient.AsyncHttpClient;
-import scala.Int;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
@@ -48,7 +45,7 @@ public class Client {
                 })
                 .mapAsync(
                         1 , (Pair<String , Integer> pair) -> {
-                            CompletionStage<Integer> result = (CompletionStage<Integer>) Patterns.ask(storeActor , pair , TIMEOUT_MILLIS);
+                            CompletionStage<Integer> result = Patterns.ask(storeActor , pair , TIMEOUT_MILLIS);
                             result.thenCompose( (Pair<Boolean, Integer> item ) ->{
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
@@ -58,13 +55,12 @@ public class Client {
                                                 Flow.<Pair<String , Integer>>create()
                                                         .mapConcat(Client::apply)
                                                         .mapAsync( 3 , Client::asyncHttp)
-                                                        .toMat(Sink.fold(0 , Integer::sum) , Keep.right());
+                                                        .toMat(Sink.fold(0L , Long::sum) , Keep.right());
 
-                            
+
                         }
-                .map()
-                
     }
+                                .map();
 }
 
     private static Iterable<Pair<String, Integer>> apply(Pair<String, Integer> requestPair) {
@@ -74,7 +70,7 @@ public class Client {
         return res;
     }
 
-    private static CompletionStage<Object> asyncHttp(Pair<String, Integer> request) {
+    private static CompletionStage<Long> asyncHttp(Pair<String, Integer> request) {
 
         AsyncHttpClient asyncHttpClient = asyncHttpClient();
         Long startTime = System.currentTimeMillis();
