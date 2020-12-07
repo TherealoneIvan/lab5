@@ -54,7 +54,7 @@ public class Client {
                                                 Flow.<Pair<String , Integer>>create()
                                                         .mapConcat(Client::apply)
                                                         .mapAsync( 3 , Client::asyncHttp)
-                                                        .toMat(Sink.fold() , Keep.right());
+                                                        .toMat(Sink.fold(0 , ) , Keep.right());
 
                             
                         }
