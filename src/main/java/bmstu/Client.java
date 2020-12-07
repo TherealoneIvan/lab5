@@ -51,8 +51,7 @@ public class Client {
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
                                         }
-                                        Source.from(Collections.singletonList(pair))
-                                        .toMat(testSink, Keep.right()).run(materializer);
+
                                         Flow<Pair<String, Integer> , Integer , NotUsed> rFlow =
                                                 Flow.<Pair<String , Integer>>create()
                                                         .mapConcat(
