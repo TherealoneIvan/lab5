@@ -57,7 +57,9 @@ public class Client {
                             });
                             return result;
                         })
-                .map();
+                .map(resp -> {
+                    storeActor.tell();
+                });
 }
 
     private static Sink<Pair<String, Integer>, CompletionStage<Long>> getSink() {
