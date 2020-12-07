@@ -66,7 +66,7 @@ public class Client {
                                                         .mapAsync( () -> {
 
                                                                     AsyncHttpClient asyncHttpClient = asyncHttpClient();
-                                                                    Long startTime = 
+                                                                    Long startTime = System.currentTimeMillis();
                                                                     asyncHttpClient
                                                                             .prepareGet(pair.getKey())
                                                                             .execute()
