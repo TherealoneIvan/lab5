@@ -13,6 +13,7 @@ import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import com.sun.tools.javac.code.Symbol;
+import static org.asynchttpclient.Dsl.*;
 import javafx.util.Pair;
 import java.io.IOException;
 import java.util.ArrayList;
