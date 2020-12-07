@@ -44,24 +44,25 @@ public class Client {
                     return new Pair<String , Integer>(item.getUri().query().toString() ,parseInt(countOfReq));
                 })
                 .mapAsync(
-                        1 , (Pair<String , Integer> pair) -> {
-                            CompletionStage<Object> result = Patterns.ask(storeActor , pair , TIMEOUT_MILLIS);
+                        1 , req -> {
+                            CompletionStage<Object> result = Patterns.ask(storeActor , req , TIMEOUT_MILLIS);
                             result.thenCompose( (Pair<Boolean, Integer> item ) ->{
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
                                         }
-
-                                Sink<Pair<String, Integer>, CompletionStage<Long>> r =
-                                                Flow.<Pair<String , Integer>>create()
-                                                        .mapConcat(Client::apply)
-                                                        .mapAsync( 3 , Client::asyncHttp)
-                                                        .toMat(Sink.fold(0L , Long::sum) , Keep.right());
-
-
-                        }
+                                        
+                            }
     }
                                 .map();
 }
+
+    private static Sink<Pair<String, Integer>, CompletionStage<Long>> getSink() {
+        return
+                        Flow.<Pair<String , Integer>>create()
+                                .mapConcat(Client::apply)
+                                .mapAsync( 3 , Client::asyncHttp)
+                                .toMat(Sink.fold(0L , Long::sum) , Keep.right());
+    }
 
     private static Iterable<Pair<String, Integer>> apply(Pair<String, Integer> requestPair) {
         ArrayList<Pair<String, Integer>> res = new ArrayList<Pair<String, Integer>>();
