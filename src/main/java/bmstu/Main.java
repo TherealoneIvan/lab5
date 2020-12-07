@@ -20,7 +20,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 import static java.lang.Integer.parseInt;
-import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 public class Main {
 
