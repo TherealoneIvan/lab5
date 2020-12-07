@@ -45,10 +45,11 @@ public class Main {
                                 Flow<Pair<String, Integer> , Integer , NotUsed> rFlow =
                                         Flow.<Pair<String , Integer>>create()
                                         .mapConcat(
-                                                item -> {
+                                                requestPair -> {
                                                    ArrayList<Pair < String ,Integer>> res = new ArrayList<Pair<String , Integer>>();
-                                                   for (int i = 0 ; i < item.getValue(); i++ )
-                                                       res.add()
+                                                   for (int i = 0 ; i < requestPair.getValue(); i++ )
+                                                       res.add(new Pair<String, Integer>(requestPair.getKey() , requestPair.getValue()));
+                                                   return res;
                                                 }
                                         )
 
