@@ -9,14 +9,10 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
-import akka.stream.javadsl.Keep;
-import akka.stream.javadsl.Sink;
-import akka.stream.javadsl.Source;
 import javafx.util.Pair;
 import org.asynchttpclient.AsyncHttpClient;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
