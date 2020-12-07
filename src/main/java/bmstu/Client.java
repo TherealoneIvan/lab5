@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
-import static akka.pattern.Patterns.ask;
 import static java.lang.Integer.parseInt;
 import static org.asynchttpclient.Dsl.asyncHttpClient;
 
@@ -46,11 +45,12 @@ public class Client {
                 })
                 .mapAsync(
                         1 ,(Pair<String, Integer> req) -> {
-                            Patterns.ask(storeActor , new Pair<String , Integer>(req.getKey() , req.getValue()) , TIMEOUT_MILLIS);
+                            CompletionStage<Object> result = (CompletionStage<Object>) Patterns.ask(storeActor , new Pair<String , Integer>(req.getKey() , req.getValue()) , TIMEOUT_MILLIS);
                             result.thenCompose( (Pair<Boolean, Integer> item ) ->{
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
                                         }
+                                        
 
                             }
     }
