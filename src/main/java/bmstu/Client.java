@@ -79,7 +79,7 @@ public class Client {
                                                             return HttpResponse.create().withEntity(String.valueOf(response));
                                                         });
                                         Source.from(Collections.singletonList(pair))
-                                        .toMat(testSink, Keep.right()).run(materializer);
+                                        .toMat(rFlow., Keep.right()).run(materializer);
                                     }
                             );
                         }
