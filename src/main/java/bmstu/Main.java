@@ -43,7 +43,11 @@ public class Main {
                                 }
                                 Flow<Pair<String, Integer> , Integer , NotUsed> rFlow =
                                         Flow.<Pair<String , Integer>>create()
-                                        .mapConcat()
+                                        .mapConcat(
+                                                item -> {
+                                                    
+                                                }
+                                        )
 
 
                                     }
