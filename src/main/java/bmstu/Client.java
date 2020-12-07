@@ -36,8 +36,7 @@ public class Client {
         }
         return countOfReq;
     }
-    public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(Http http , ActorSystem actorSystem ,
-                                                                      ActorMaterializer actorMaterializer , ActorRef storeActor){
+    public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(ActorMaterializer actorMaterializer , ActorRef storeActor){
         return Flow.of(HttpRequest.class)
                 .map(item -> {
                     String uri = item.getUri().toString();

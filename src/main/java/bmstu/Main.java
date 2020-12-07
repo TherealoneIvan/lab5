@@ -33,7 +33,7 @@ public class Main {
         final Http http = Http.get(system);
         final ActorMaterializer materializer =
                 ActorMaterializer.create(system);
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = Client::getCounter;
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = Client.getCounter(materializer , storeActor);
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost("localhost", 8080),
