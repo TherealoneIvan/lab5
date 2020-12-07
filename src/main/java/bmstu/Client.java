@@ -76,7 +76,7 @@ public class Client {
                                                         .map(response ->
                                                         {
                                                             storeActor.tell(response , ActorRef.noSender())
-                                                            return 
+                                                            return HttpResponse.create().withEntity()
                                                         })
 
 
