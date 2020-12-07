@@ -15,6 +15,7 @@ import akka.stream.javadsl.Flow;
 import com.sun.tools.javac.code.Symbol;
 import javafx.util.Pair;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -45,7 +46,8 @@ public class Main {
                                         Flow.<Pair<String , Integer>>create()
                                         .mapConcat(
                                                 item -> {
-                                                    
+                                                   ArrayList<Integer> res = new ArrayList<Integer>();
+                                                   for (int i = 0 ; i <  )
                                                 }
                                         )
 
