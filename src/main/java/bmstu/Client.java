@@ -9,6 +9,7 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import akka.stream.javadsl.Sink;
 import javafx.util.Pair;
 import org.asynchttpclient.AsyncHttpClient;
 
@@ -52,7 +53,7 @@ public class Client {
                                                 Flow.<Pair<String , Integer>>create()
                                                         .mapConcat(Client::apply)
                                                         .mapAsync( 3 , Client::asyncHttp)
-                                                        .toMat()
+                                                        .toMat(Sink.fold())
 
                             
                         }
