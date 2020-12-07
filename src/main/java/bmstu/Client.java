@@ -71,7 +71,7 @@ public class Client {
                                                                             .prepareGet(pair.getKey())
                                                                             .execute()
                                                                             .toCompletableFuture()
-                                                                            .thenCompose()
+                                                                            .thenCompose(response -> {})
 
                                                                     return
                                                                 }
