@@ -53,9 +53,8 @@ public class Client {
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
                                         }
-                                        Source.from(Collections.singletonList(item.))
-                                            .toMat(testSink, Keep.right()).run(materializer);
-                                        Flow<Pair<String, Integer>, Object, NotUsed> rFlow =
+
+                                Sink<Pair<String, Integer>, CompletionStage<Long>> r =
                                                 Flow.<Pair<String , Integer>>create()
                                                         .mapConcat(Client::apply)
                                                         .mapAsync( 3 , Client::asyncHttp)
