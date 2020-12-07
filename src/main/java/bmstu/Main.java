@@ -52,7 +52,11 @@ public class Main {
                                                    return res;
                                                 }
                                         )
-                                        .mapAsync()
+                                        .mapAsync(
+                                                asyncHttpClient
+                                                        .prepareGet("http://www.example.com/")
+                                                        .execute()
+                                        )
 
 
                                     }
