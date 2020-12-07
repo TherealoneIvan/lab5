@@ -67,8 +67,10 @@ public class Client {
                                                                     AsyncHttpClient asyncHttpClient = asyncHttpClient();
                                                                     asyncHttpClient
                                                                             .prepareGet(pair.getKey())
-                                                                            .execute();
-                                                                            .to
+                                                                            .execute()
+                                                                            .toCompletableFuture()
+                                                                            .thenCompose()
+
                                                                     return
                                                                 }
                                                         )
