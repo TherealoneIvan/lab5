@@ -44,8 +44,8 @@ public class Client {
                     return new Pair<String , Integer>(item.getUri().query().toString() ,parseInt(countOfReq));
                 })
                 .mapAsync(
-                        1 , req -> {
-                            CompletionStage<Object> result = (CompletionStage<Object>) Patterns.ask(storeActor ,  , TIMEOUT_MILLIS);
+                        1 ,(Pair<String, Integer> req) -> {
+                            CompletionStage<Object> result = (CompletionStage<Object>) Patterns.ask(storeActor , new Pair<String , Integer>(req.getKey() , req.getValue()) , TIMEOUT_MILLIS);
                             result.thenCompose( (Pair<Boolean, Integer> item ) ->{
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());

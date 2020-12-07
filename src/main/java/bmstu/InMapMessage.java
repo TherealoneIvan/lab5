@@ -1,3 +1,4 @@
+package bmstu;
 public class InMapMessage {
     private boolean inMap;
     private int delay;
