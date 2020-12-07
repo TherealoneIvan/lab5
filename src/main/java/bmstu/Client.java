@@ -73,7 +73,7 @@ public class Client {
                                                                             .thenCompose(response -> CompletableFuture.completedFuture(System.currentTimeMillis() - startTime));
                                                                 }
                                                         )
-                                                        .map(response -> storeActor.tell())
+                                                        .map(response -> storeActor.tell(response , ActorRef.noSender()))
 
 
                                 Source.from(Collections.singletonList(pair))
