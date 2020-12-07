@@ -51,7 +51,7 @@ public class Client {
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
                                         }
-                                Source.from(Collections.singletonList(req))
+                                        return Source.from(Collections.singletonList(req))
                                         .toMat(getSink(), Keep.right()).run(actorMaterializer);
 
                             }
