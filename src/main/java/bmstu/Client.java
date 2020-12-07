@@ -47,16 +47,17 @@ public class Client {
                 .mapAsync(
                         1 ,(Pair<String, Integer> req) -> {
                             CompletionStage<Object> result = (CompletionStage<Object>) Patterns.ask(storeActor , new Pair<String , Integer>(req.getKey() , req.getValue()) , TIMEOUT_MILLIS);
-                            result.thenCompose( (Pair<Boolean, Integer> item ) ->{
-                                        if (item.getKey()){
-                                            return  CompletableFuture.completedFuture(item.getValue());
+                            result.thenCompose( (Object item) ->{
+                                        if ((Integer) item != -1 ){
+                                            return  CompletableFuture.completedFuture((Integer) item);
                                         }
                                         return Source.from(Collections.singletonList(req))
-                                        .toMat(getSink(), Keep.right()).run(actorMaterializer);
-
-                            }
-    }
-                                .map();
+                                            .toMat(getSink(), Keep.right()).run(actorMaterializer)
+                                                .thenApply(reqTime -> new Pair<>(req.getKey() , reqTime/req.getValue()));
+                            });
+                            return result;
+                        })
+                .map();
 }
 
     private static Sink<Pair<String, Integer>, CompletionStage<Long>> getSink() {

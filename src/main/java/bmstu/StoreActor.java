@@ -15,10 +15,10 @@ public class StoreActor extends AbstractActor {
                         pair -> getRes(pair))
                 .build();
     }
-    private static InMapMessage getRes(Pair<String , Integer> req){
+    private static Integer getRes(Pair<String , Integer> req){
         if (store.containsKey(req)){
-            return new InMapMessage(true , store.get(req));
+            return new Integer(store.get(req));
         }else
-            return new InMapMessage(false , 0);
+            return new Integer(-1);
     }
 }
