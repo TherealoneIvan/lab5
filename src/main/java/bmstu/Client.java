@@ -11,11 +11,13 @@ import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Sink;
+import akka.stream.javadsl.Source;
 import javafx.util.Pair;
 import org.asynchttpclient.AsyncHttpClient;
 import scala.Int;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -51,6 +53,8 @@ public class Client {
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
                                         }
+                                Source.from(Collections.singletonList(r))
+                                        .toMat(testSink, Keep.right()).run(materializer);
                                         Flow<Pair<String, Integer>, Object, NotUsed> rFlow =
                                                 Flow.<Pair<String , Integer>>create()
                                                         .mapConcat(Client::apply)
