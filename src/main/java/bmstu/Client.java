@@ -71,9 +71,7 @@ public class Client {
                                                                             .prepareGet(pair.getKey())
                                                                             .execute()
                                                                             .toCompletableFuture()
-                                                                            .thenCompose(response -> {
-                                                                                CompletableFuture.completedFuture(System.currentTimeMillis() - startTime);
-                                                                            })
+                                                                            .thenCompose(response -> CompletableFuture.completedFuture(System.currentTimeMillis() - startTime));
 
                                                                     return
                                                                 }
