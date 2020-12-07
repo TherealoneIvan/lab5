@@ -1,5 +1,2 @@
-package bmstu;
-
-public class AskMessage {
-
+package bmstu;public class AskMessage {
 }
