@@ -10,6 +10,7 @@ import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import akka.stream.javadsl.Keep;
+import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import javafx.util.Pair;
 import org.asynchttpclient.AsyncHttpClient;
@@ -51,7 +52,7 @@ public class Client {
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
                                         }
-                                        Sink<Pair<String, Integer> , >
+                                        Sink<Pair<String, Integer> , CompletionStage<Long>> testSink =
                                         Flow<Pair<String, Integer> , Integer , NotUsed> rFlow =
                                                 Flow.<Pair<String , Integer>>create()
                                                         .mapConcat(
