@@ -46,7 +46,7 @@ public class Client {
                 })
                 .mapAsync(
                         1 ,(Pair<String, Integer> req) -> {
-                            .ask(storeActor , new Pair<String , Integer>(req.getKey() , req.getValue()) , TIMEOUT_MILLIS);
+                            ask(storeActor , new Pair<String , Integer>(req.getKey() , req.getValue()) , TIMEOUT_MILLIS);
                             result.thenCompose( (Pair<Boolean, Integer> item ) ->{
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
