@@ -52,7 +52,7 @@ public class Client {
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
                                         }
-                                        Sink<Pair<String, Integer> , CompletionStage<Long>> testSink =
+//                                        Sink<Pair<String, Integer> , CompletionStage<Long>> testSink =
                                         Flow<Pair<String, Integer> , Integer , NotUsed> rFlow =
                                                 Flow.<Pair<String , Integer>>create()
                                                         .mapConcat(
@@ -68,7 +68,7 @@ public class Client {
                                                                     asyncHttpClient
                                                                             .prepareGet(pair.getKey())
                                                                             .execute();
-                                                                            
+
                                                                     return
                                                                 }
                                                         )
