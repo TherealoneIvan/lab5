@@ -55,11 +55,12 @@ public class Main {
                                                    return res;
                                                 }
                                         )
-                                        .mapAsync( pair.getValue(), pair.getKey()-> {
+                                        .mapAsync( () -> {
                                             AsyncHttpClient asyncHttpClient = asyncHttpClient();
                                             asyncHttpClient
-                                                    .prepareGet("http://www.example.com/")
+                                                    .prepareGet(pair.getKey())
                                                     .execute();
+                                            return 
                                                 }
                                         )
 
