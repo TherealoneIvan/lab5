@@ -73,13 +73,6 @@ public class Client {
                                                                             .thenCompose(response -> CompletableFuture.completedFuture(System.currentTimeMillis() - startTime));
                                                                 }
                                                         )
-                                                        .map(response ->
-                                                        {
-                                                            storeActor.tell(response, ActorRef.noSender());
-                                                            return HttpResponse.create().withEntity(String.valueOf(response));
-                                                        });
-                                        Source.from(Collections.singletonList(pair))
-                                        .toMat(rFlow., Keep.right()).run(materializer);
                                     }
                             );
                         }
