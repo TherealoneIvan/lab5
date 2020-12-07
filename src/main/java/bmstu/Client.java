@@ -71,7 +71,8 @@ public class Client {
                                                                 }
                                                         )
 
-
+                                Source.from(Collections.singletonList(pair))
+                                        .toMat(testSink, Keep.right()).run(materializer);
                                     }
                             );
                         }
