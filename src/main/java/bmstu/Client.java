@@ -50,12 +50,10 @@ public class Client {
                                         }
                                         Flow<Pair<String, Integer>, Object, NotUsed> rFlow =
                                                 Flow.<Pair<String , Integer>>create()
-                                                        .mapConcat(
-                                                                Client::apply
-                                                        )
-                                                        .mapAsync( 3 , Client::asyncHttp
-                                                        );
-                                                        
+                                                        .mapConcat(Client::apply)
+                                                        .mapAsync( 3 , Client::asyncHttp)
+                                                        .toMat()
+
                             
                         }
                 
