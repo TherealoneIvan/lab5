@@ -45,7 +45,7 @@ public class Client {
                 })
                 .mapAsync(
                         1 , (Pair<String , Integer> pair) -> {
-                            CompletionStage<Integer> result = Patterns.ask(storeActor , pair , TIMEOUT_MILLIS);
+                            CompletionStage<Object> result = Patterns.ask(storeActor , pair , TIMEOUT_MILLIS);
                             result.thenCompose( (Pair<Boolean, Integer> item ) ->{
                                         if (item.getKey()){
                                             return  CompletableFuture.completedFuture(item.getValue());
