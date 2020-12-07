@@ -38,7 +38,7 @@ public class Client {
     }
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(Http http , ActorSystem actorSystem ,
                                                                       ActorMaterializer actorMaterializer , ActorRef storeActor){
-        Flow.of(HttpRequest.class)
+        return Flow.of(HttpRequest.class)
                 .map(item -> {
                     String uri = item.getUri().toString();
                     String countOfReq = countBuilder(uri);
@@ -59,7 +59,7 @@ public class Client {
                         })
                 .map(resp -> {
                     storeActor.tell(resp , ActorRef.noSender());
-                    return HttpResponse.create().withEntity()
+                    return HttpResponse.create().withEntity(String.valueOf(resp));
                 });
 }
 
