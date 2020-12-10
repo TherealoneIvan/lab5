@@ -38,7 +38,7 @@ public class Client {
         return Flow.of(HttpRequest.class)
                 .map(item -> {
                     String uri = item.getUri().toString();
-                    String countOfReq = item.getUri().query().getOrElse("count" , )
+                    String countOfReq = item.getUri().query().getOrElse("count" , "");
                     return new Pair<String , Integer>(item.getUri().query().toString() ,parseInt(countOfReq));
                 })
                 .mapAsync(
