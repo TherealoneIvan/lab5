@@ -12,10 +12,10 @@ public class StoreActor extends AbstractActor {
         return receiveBuilder()
                 .match(
                         String.class,
-                        url -> getRes(url))
+                        StoreActor::getRes)
                 .match(
                         Pair.class,
-                        resp -> putInMap(resp)
+                        StoreActor::putInMap
                 )
                 .build();
     }
