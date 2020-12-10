@@ -11,15 +11,19 @@ public class StoreActor extends AbstractActor {
     public Receive createReceive() {
         return receiveBuilder()
                 .match(
-                        Pair.class,
-                        pair -> getRes(pair))
+                        String.class,
+                        url -> getRes(url))
                 .match(
-
+                        Pair.class,
+                        resp -> putInMap(resp)
                 )
                 .build();
     }
-    private static Integer getRes(Pair<String , Integer> req){
-        System.out.println(req.first() + " " + req.second());
+    private static Integer getRes(String req){
+        System.out.println(req);
         return new Integer(store.getOrDefault(req, -1));
+    }
+    private static void putInMap(Pair<String , Integer> res){
+        store.put(res.first() , res.second());
     }
 }
