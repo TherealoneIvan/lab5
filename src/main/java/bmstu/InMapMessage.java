@@ -1,19 +1,19 @@
 package bmstu;
 public class InMapMessage {
-    private boolean inMap;
+    private boolean url;
     private int delay;
 
     public InMapMessage(boolean inMap, int delay) {
-        this.inMap = inMap;
+        this.url = inMap;
         this.delay = delay;
     }
 
-    public boolean isInMap() {
-        return inMap;
+    public boolean isUrl() {
+        return url;
     }
 
-    public void setInMap(boolean inMap) {
-        this.inMap = inMap;
+    public void setUrl(boolean url) {
+        this.url = url;
     }
 
     public int getDelay() {
