@@ -16,10 +16,7 @@ public class StoreActor extends AbstractActor {
                 .build();
     }
     private static Integer getRes(Pair<String , Integer> req){
-        System.out.println(req);
-        if (store.containsKey(req)){
-            return new Integer(store.get(req));
-        }else
-            return new Integer(-1);
+        System.out.println(req.first() + " " + req.second());
+        return new Integer(store.getOrDefault(req, -1));
     }
 }
