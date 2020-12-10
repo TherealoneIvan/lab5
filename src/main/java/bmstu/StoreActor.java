@@ -24,6 +24,7 @@ public class StoreActor extends AbstractActor {
         return new Integer(store.getOrDefault(req, -1));
     }
     private static void putInMap(Pair<String , Integer> res){
+        System.out.println(res.first() + " " + res.second());
         store.put(res.first() , res.second());
     }
 }
