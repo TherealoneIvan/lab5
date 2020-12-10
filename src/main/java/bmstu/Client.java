@@ -25,19 +25,19 @@ public class Client {
     public static final char EQUALS_CHAR = '=';
     public static final int TIMEOUT_MILLIS = 5000;
 
-    private static String countBuilder(String uri) {
-        int i = uri.length() - 1;
-        String countOfReq = EMPTY_STRING;
-        while (uri.charAt(i) != EQUALS_CHAR) {
-            countOfReq += uri.charAt(i);
-            i--;
-        }
-        return countOfReq;
-    }
+//    private static String countBuilder(String uri) {
+//        int i = uri.length() - 1;
+//        String countOfReq = EMPTY_STRING;
+//        while (uri.charAt(i) != EQUALS_CHAR) {
+//            countOfReq += uri.charAt(i);
+//            i--;
+//        }
+//        return countOfReq;
+//    }
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(ActorMaterializer actorMaterializer , ActorRef storeActor){
         return Flow.of(HttpRequest.class)
                 .map(item -> {
-                    String uri = item.getUri().query().getOrElse("test");
+                    String uri = item.getUri().query().getOrElse("testUrl" ,"");
                     String countOfReq = item.getUri().query().getOrElse("count" , "");
                     return new Pair<String , Integer>(item.getUri().query().toString() ,parseInt(countOfReq));
                 })
