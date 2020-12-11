@@ -39,7 +39,7 @@ public class Client {
                                 Patterns.ask(storeActor , new String(req.first()) , duration)
                                 .thenCompose( (Object item) -> {
                                     if ((Long) item != -1) {
-                                        return CompletableFuture.completedFuture((Pair<String,Long>) item);
+                                        return CompletableFuture.completedFuture(new Pair<String,Long> (req.first(),item));
                                     }
                                     return Source.from(Collections.singletonList(req))
                                             .toMat(getSink(), Keep.right()).run(actorMaterializer)
