@@ -6,7 +6,7 @@ import akka.japi.Pair;
 import java.util.Map;
 
 public class StoreActor extends AbstractActor {
-    static Map<String, Integer> store;
+    static Map<String, Integer> store = ;
     @Override
     public Receive createReceive() {
         return receiveBuilder()
@@ -24,7 +24,7 @@ public class StoreActor extends AbstractActor {
         return new Integer(store.getOrDefault(req, -1));
     }
     private static void putInMap(Pair<String , Integer> res){
-        System.out.println(res.first() + " " + res.second());
+        System.out.println(res.first().getClass() + " - " + res.second());
         store.put(res.first() , res.second());
     }
 }
