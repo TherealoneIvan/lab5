@@ -33,22 +33,19 @@ public class Client {
                     return new Pair<String , Integer>(uri ,parseInt(countOfReq));
                 })
                 .mapAsync(
-                        1 ,(Pair<String, Integer> req) -> {
-                            CompletionStage<Object> result = Patterns.ask(storeActor , new String(req.first()) , duration);
-                            result.thenCompose( (Object item) ->{
-                                        if ((Integer) item != -1 ){
-                                            return  CompletableFuture.completedFuture((Integer) item);
-                                        }
-                                        return Source.from(Collections.singletonList(req))
+                        1 ,(Pair<String, Integer> req) ->
+                                Patterns.ask(storeActor , new String(req.first()) , duration)
+                                .thenCompose( (Object item) -> {
+                                    if ((Integer) item != -1) {
+                                        return CompletableFuture.completedFuture((Integer) item);
+                                    }
+                                    return Source.from(Collections.singletonList(req))
                                             .toMat(getSink(), Keep.right()).run(actorMaterializer)
-                                                .thenApply(reqTime -> {
-                                                    System.out.println(req.first() + " " +  reqTime/req.second());
-                                                    return new Pair<>(req.first() , reqTime/req.second());
-                                                });
-
-                            });
-                            return result;
-                        })
+                                            .thenApply(reqTime -> {
+                                                System.out.println(req.first() + " " + reqTime / req.second());
+                                                return new Pair<>(req.first(), reqTime / req.second());
+                                            });
+                                }))
                 .map(resp -> {
                     storeActor.tell(resp , ActorRef.noSender());
                     return HttpResponse.create().withEntity(String.valueOf(resp));
