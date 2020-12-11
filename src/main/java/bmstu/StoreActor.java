@@ -22,9 +22,9 @@ public class StoreActor extends AbstractActor {
                 )
                 .build();
     }
-    private static Long getRes(String req){
+    private static Pair<String,Long> getRes(String req){
         System.out.println(req);
-        return new Long(store.getOrDefault(req, (long) -1));
+        return new Pair<String,Long> (req , new Long(store.getOrDefault(req, (long) -1)));
     }
     private static void putInMap(Pair<String , Long> res){
         System.out.println(res.first().getClass() + " - " + res.second());
