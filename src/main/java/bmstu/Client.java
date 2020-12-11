@@ -23,8 +23,6 @@ import static java.lang.Integer.parseInt;
 import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 public class Client {
-    public static final String EMPTY_STRING = "";
-    public static final char EQUALS_CHAR = '=';
     public static final int TIMEOUT_MILLIS = 5;
     private static Duration duration = Duration.ofSeconds(TIMEOUT_MILLIS);
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(ActorMaterializer actorMaterializer , ActorRef storeActor){
@@ -37,13 +35,10 @@ public class Client {
                 .mapAsync(
                         1 ,(Pair<String, Integer> req) -> {
                             CompletionStage<Object> result = Patterns.ask(storeActor , new String(req.first()) , duration);
-                            System.out.println("123");
                             result.thenCompose( (Object item) ->{
-                                System.out.println("131");
                                         if ((Integer) item != -1 ){
                                             return  CompletableFuture.completedFuture((Integer) item);
                                         }
-                                        System.out.println("check");
                                         return Source.from(Collections.singletonList(req))
                                             .toMat(getSink(), Keep.right()).run(actorMaterializer)
                                                 .thenApply(reqTime -> {
@@ -56,7 +51,6 @@ public class Client {
                         })
                 .map(resp -> {
                     storeActor.tell(resp , ActorRef.noSender());
-                    System.out.println(resp.toString());
                     return HttpResponse.create().withEntity(String.valueOf(resp));
                 });
 }
