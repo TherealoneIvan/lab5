@@ -13,7 +13,7 @@ public class StoreActor extends AbstractActor {
         return receiveBuilder()
                 .match(
                         String.class,message ->{
-                            getSender.tell(StoreActor::getRes
+                            getSender().tell(StoreActor::getRes
                         }
                 .match(
                         Pair.class,
