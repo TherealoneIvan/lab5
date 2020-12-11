@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class StoreActor extends AbstractActor {
-    static Map<String, Integer> store = new HashMap<String, Integer>();
+    static Map<String, Long> store = new HashMap<String, Long>();
     @Override
     public Receive createReceive() {
         return receiveBuilder()
@@ -22,11 +22,11 @@ public class StoreActor extends AbstractActor {
                 )
                 .build();
     }
-    private static Integer getRes(String req){
+    private static Long getRes(String req){
         System.out.println(req);
-        return new Integer(store.getOrDefault(req, -1));
+        return new Long(store.getOrDefault(req, (long) -1));
     }
-    private static void putInMap(Pair<String , Integer> res){
+    private static void putInMap(Pair<String , Long> res){
         System.out.println(res.first().getClass() + " - " + res.second());
         store.put(res.first() , res.second());
     }
