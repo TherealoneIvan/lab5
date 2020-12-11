@@ -56,6 +56,7 @@ public class Client {
                         })
                 .map(resp -> {
                     storeActor.tell(resp , ActorRef.noSender());
+                    System.out.println(resp.toString());
                     return HttpResponse.create().withEntity(String.valueOf(resp));
                 });
 }
