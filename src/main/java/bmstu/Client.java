@@ -2,6 +2,7 @@ package bmstu;
 
 import akka.NotUsed;
 import akka.actor.ActorRef;
+import akka.http.javadsl.model.HttpEntities;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.japi.Pair;
@@ -50,8 +51,10 @@ public class Client {
                 .map(resp -> {
                     storeActor.tell(resp , ActorRef.noSender());
                     return HttpResponse.create().withEntity(
-                            
-                            String.valueOf(resp));
+                            HttpEntities.create(
+                                    
+                            )
+                            );
                 });
 }
 
