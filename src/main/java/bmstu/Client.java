@@ -12,6 +12,8 @@ import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import org.asynchttpclient.AsyncHttpClient;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
@@ -24,7 +26,7 @@ public class Client {
     public static final String EMPTY_STRING = "";
     public static final char EQUALS_CHAR = '=';
     public static final int TIMEOUT_MILLIS = 5000;
-    
+    Duration 
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(ActorMaterializer actorMaterializer , ActorRef storeActor){
         return Flow.of(HttpRequest.class)
                 .map(item -> {
