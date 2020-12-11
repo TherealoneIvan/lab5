@@ -26,7 +26,7 @@ public class Client {
     public static final String EMPTY_STRING = "";
     public static final char EQUALS_CHAR = '=';
     public static final int TIMEOUT_MILLIS = 5000;
-    private static Duration duration = 
+    private static Duration duration = Duration.ofSeconds()
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(ActorMaterializer actorMaterializer , ActorRef storeActor){
         return Flow.of(HttpRequest.class)
                 .map(item -> {
