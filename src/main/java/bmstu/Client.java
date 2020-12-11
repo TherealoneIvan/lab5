@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
 import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 public class Client {
@@ -30,14 +31,14 @@ public class Client {
                 .map(item -> {
                     String uri = item.getUri().query().get("testUrl").get();
                     String countOfReq = item.getUri().query().getOrElse("count" , "");
-                    return new Pair<String , Integer>(uri ,parseInt(countOfReq));
+                    return new Pair<String , Long>(uri ,parseLong(countOfReq));
                 })
                 .mapAsync(
-                        1 ,(Pair<String, Integer> req) ->
+                        1 ,(Pair<String, Long> req) ->
                                 Patterns.ask(storeActor , new String(req.first()) , duration)
                                 .thenCompose( (Object item) -> {
-                                    if ((Integer) item != -1) {
-                                        return CompletableFuture.completedFuture((Integer) item);
+                                    if ((Long) item != -1) {
+                                        return CompletableFuture.completedFuture((Long) item);
                                     }
                                     return Source.from(Collections.singletonList(req))
                                             .toMat(getSink(), Keep.right()).run(actorMaterializer)
@@ -48,26 +49,27 @@ public class Client {
                                 }))
                 .map(resp -> {
                     storeActor.tell(resp , ActorRef.noSender());
-                    return HttpResponse.create().withEntity(String.valueOf(resp));
+                    return HttpResponse.create().withEntity(
+                            String.valueOf(resp));
                 });
 }
 
-    private static Sink<Pair<String, Integer>, CompletionStage<Long>> getSink() {
+    private static Sink<Pair<String, Long>, CompletionStage<Long>> getSink() {
         return
-                        Flow.<Pair<String , Integer>>create()
+                        Flow.<Pair<String , Long>>create()
                                 .mapConcat(Client::concatReq)
                                 .mapAsync( 3 , Client::asyncHttp)
                                 .toMat(Sink.fold(0L , Long::sum) , Keep.right());
     }
 
-    private static Iterable<Pair<String, Integer>> concatReq(Pair<String, Integer> requestPair) {
-        ArrayList<Pair<String, Integer>> res = new ArrayList<Pair<String, Integer>>();
+    private static Iterable<Pair<String, Long>> concatReq(Pair<String, Long> requestPair) {
+        ArrayList<Pair<String, Long>> res = new ArrayList<Pair<String, Long>>();
         for (int i = 0; i < requestPair.second(); i++)
-            res.add(new Pair<String, Integer>(requestPair.first(), requestPair.second()));
+            res.add(new Pair<String, Long>(requestPair.first(), requestPair.second()));
         return res;
     }
 
-    private static CompletionStage<Long> asyncHttp(Pair<String, Integer> request) {
+    private static CompletionStage<Long> asyncHttp(Pair<String, Long> request) {
 
         AsyncHttpClient asyncHttpClient = asyncHttpClient();
         Long startTime = System.currentTimeMillis();
