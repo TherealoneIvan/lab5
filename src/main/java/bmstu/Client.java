@@ -52,7 +52,7 @@ public class Client {
                     storeActor.tell(resp , ActorRef.noSender());
                     return HttpResponse.create().withEntity(
                             HttpEntities.create(
-                                    
+                                    ()
                             )
                             );
                 });
