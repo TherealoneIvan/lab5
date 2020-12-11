@@ -46,7 +46,10 @@ public class Client {
                                         System.out.println("check");
                                         return Source.from(Collections.singletonList(req))
                                             .toMat(getSink(), Keep.right()).run(actorMaterializer)
-                                                .thenApply(reqTime -> new Pair<>(req.first() , reqTime/req.second()));
+                                                .thenApply(reqTime -> {
+                                                    System.out.println(req.first() + " " +  reqTime/req.second());
+                                                    return new Pair<>(req.first() , reqTime/req.second());
+                                                });
 
                             });
                             return result;
