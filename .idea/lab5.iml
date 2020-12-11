@@ -16,6 +16,7 @@
     <orderEntry type="library" name="Maven: com.typesafe:config:1.3.3" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-java8-compat_2.12:0.8.0" level="project" />
     <orderEntry type="library" name="Maven: com.typesafe.akka:akka-slf4j_2.12:2.5.26" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: com.typesafe.akka:akka-stream_2.12:2.5.26" level="project" />
     <orderEntry type="library" name="Maven: com.typesafe.akka:akka-protobuf_2.12:2.5.26" level="project" />
     <orderEntry type="library" name="Maven: org.reactivestreams:reactive-streams:1.0.2" level="project" />
@@ -53,7 +54,5 @@
     <orderEntry type="library" name="Maven: io.netty:netty-codec-dns:4.1.42.Final" level="project" />
     <orderEntry type="library" name="Maven: com.typesafe.netty:netty-reactive-streams:2.0.3" level="project" />
     <orderEntry type="library" name="Maven: com.sun.activation:javax.activation:1.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:${slf4j.version}" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:${slf4j.version}" level="project" />
   </component>
 </module>
