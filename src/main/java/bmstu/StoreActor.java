@@ -14,7 +14,7 @@ public class StoreActor extends AbstractActor {
         return receiveBuilder()
                 .match(
                         String.class,(String message) ->{
-                            getSender().tell(getRes(message), ActorRef.noSender());
+                            getSender().tell(new getRes(message), ActorRef.noSender());
                         })
                 .match(
                         Pair.class,
