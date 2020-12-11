@@ -1,6 +1,7 @@
 package bmstu;
 
 import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
 import akka.japi.Pair;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ public class StoreActor extends AbstractActor {
         return receiveBuilder()
                 .match(
                         String.class,message ->{
-                            getSender().tell(StoreActor::getRes
+                            getSender().tell(StoreActor::getRes(message), ActorRef.noSender())
                         }
                 .match(
                         Pair.class,
