@@ -13,8 +13,8 @@ public class StoreActor extends AbstractActor {
     public Receive createReceive() {
         return receiveBuilder()
                 .match(
-                        String.class,message ->{
-                            getSender().tell(StoreActor::getRes(message), ActorRef.noSender())
+                        String.class,(String message) ->{
+                            getSender().tell(getRes(message), ActorRef.noSender())
                         }
                 .match(
                         Pair.class,
