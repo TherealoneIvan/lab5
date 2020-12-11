@@ -3,10 +3,11 @@ package bmstu;
 import akka.actor.AbstractActor;
 import akka.japi.Pair;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class StoreActor extends AbstractActor {
-    static Map<String, Integer> store = new Map<String, Integer>()
+    static Map<String, Integer> store = new HashMap<String, Integer>();
     @Override
     public Receive createReceive() {
         return receiveBuilder()
