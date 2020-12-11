@@ -25,8 +25,8 @@ import static org.asynchttpclient.Dsl.asyncHttpClient;
 public class Client {
     public static final String EMPTY_STRING = "";
     public static final char EQUALS_CHAR = '=';
-    public static final int TIMEOUT_MILLIS = 5000;
-    private static Duration duration = Duration.ofSeconds()
+    public static final int TIMEOUT_MILLIS = 5;
+    private static Duration duration = Duration.ofSeconds(TIMEOUT_MILLIS);
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(ActorMaterializer actorMaterializer , ActorRef storeActor){
         return Flow.of(HttpRequest.class)
                 .map(item -> {
@@ -36,7 +36,7 @@ public class Client {
                 })
                 .mapAsync(
                         1 ,(Pair<String, Integer> req) -> {
-                            CompletionStage<Object> result = Patterns.ask(storeActor , new String(req.first()) , TIMEOUT_MILLIS);
+                            CompletionStage<Object> result = Patterns.ask(storeActor , new String(req.first()) , duration);
                             System.out.println("123");
                             result.thenCompose( (Object item) ->{
                                 System.out.println("131");
