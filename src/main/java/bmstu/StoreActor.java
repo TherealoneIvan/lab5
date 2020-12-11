@@ -6,7 +6,7 @@ import akka.japi.Pair;
 import java.util.Map;
 
 public class StoreActor extends AbstractActor {
-    static Map<String, Integer> store = ;
+    static Map<String, Integer> store = new Map<String, Integer>();
     @Override
     public Receive createReceive() {
         return receiveBuilder()
