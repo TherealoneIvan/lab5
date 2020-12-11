@@ -24,7 +24,6 @@ public class Client {
     public static final String EMPTY_STRING = "";
     public static final char EQUALS_CHAR = '=';
     public static final int TIMEOUT_MILLIS = 5000;
-    
     public static Flow<HttpRequest, HttpResponse, NotUsed> getCounter(ActorMaterializer actorMaterializer , ActorRef storeActor){
         return Flow.of(HttpRequest.class)
                 .map(item -> {
@@ -34,11 +33,12 @@ public class Client {
                 })
                 .mapAsync(
                         1 ,(Pair<String, Integer> req) -> {
-                            CompletionStage<Object> result = (CompletionStage<Object>) Patterns.ask(storeActor , new Pair<String , Integer>(req.first() , req.second()) , TIMEOUT_MILLIS);
+                            CompletionStage<Object> result = (CompletionStage<Object>) Patterns.ask(storeActor , new String(req.first()) , TIMEOUT_MILLIS);
                             result.thenCompose( (Object item) ->{
                                         if ((Integer) item != -1 ){
                                             return  CompletableFuture.completedFuture((Integer) item);
                                         }
+                                        System.out.println("check");
                                         return Source.from(Collections.singletonList(req))
                                             .toMat(getSink(), Keep.right()).run(actorMaterializer)
                                                 .thenApply(reqTime -> new Pair<>(req.first() , reqTime/req.second()));
