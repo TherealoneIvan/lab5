@@ -34,7 +34,9 @@ public class Client {
                 .mapAsync(
                         1 ,(Pair<String, Integer> req) -> {
                             CompletionStage<Object> result = (CompletionStage<Object>) Patterns.ask(storeActor , new String(req.first()) , TIMEOUT_MILLIS);
+                            System.out.println("123");
                             result.thenCompose( (Object item) ->{
+                                System.out.println("131");
                                         if ((Integer) item != -1 ){
                                             return  CompletableFuture.completedFuture((Integer) item);
                                         }
